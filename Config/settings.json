@@ -1,0 +1,11 @@
+{
+    "Comment1": "Sample configuration for the Configurable Processor system.",
+    "Comment2": "Set the processor type: Text, Numeric, Image, or Audio.",
+    "Processor": {
+        "Options": {
+            "Type": "Image",
+            "Threshold": 0.5,
+            "MaxRetries": 3
+        }
+    }
+}
