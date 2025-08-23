@@ -37,11 +37,16 @@ std::string Configuration::getOption(const std::string &keyPath)
 
     // extact value of processor type
     size_t semiColonPos = configData.find(":", keyPos);
+    size_t comma = configData.find(",", keyPos);
     size_t valueStart = configData.find("\"", semiColonPos) + 1;
     size_t valueEnd = configData.find("\"", valueStart);
-    if (valueEnd == std::string::npos)
+    if (valueStart >= comma || valueEnd >= comma)
     {
         throw std::runtime_error("Malformed configuration value for key '" + key + "'");
+    }
+    else if (valueEnd == valueStart)
+    {
+        throw std::runtime_error("Empty configuration value for key '" + key + "'");
     }
 
     // return the extracted value
