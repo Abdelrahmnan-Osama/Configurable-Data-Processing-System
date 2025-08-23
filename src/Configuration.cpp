@@ -35,12 +35,14 @@ std::string Configuration::getOption(const std::string &keyPath)
         throw std::runtime_error("Configuration key '" + key + "' not found");
     }
 
-    // extact value of processor type
+    // extact json key-value delimeters
     size_t semiColonPos = configData.find(":", keyPos);
-    size_t comma = configData.find(",", keyPos);
+    size_t commaPos = configData.find(",", keyPos);
+
+    // extact value of processor type
     size_t valueStart = configData.find("\"", semiColonPos) + 1;
     size_t valueEnd = configData.find("\"", valueStart);
-    if (valueStart >= comma || valueEnd >= comma)
+    if (valueStart >= commaPos || valueEnd >= commaPos || commaPos != valueEnd + 1)
     {
         throw std::runtime_error("Malformed configuration value for key '" + key + "'");
     }
